@@ -1,29 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+
 int main(int argc, char *argv[]) {
 	int arraySize,choice,i,searchWord,count=0;
-	printf("Which is the capacity of the phone book?:");
+	printf("Which is the capacity of the phone book?:"); //Here we ask for the size of the phone book
 	scanf("%d",&arraySize);
-	int *arrayName = malloc(sizeof(int) * arraySize);
+	
+	int *arrayName = malloc(sizeof(int) * arraySize);	//Here we initiate our arrays using the given size
 	int *arrayLastname = malloc(sizeof(int) * arraySize);
 	int *arrayTel = malloc(sizeof(int) * arraySize);
 	system("cls");
-	while(1){
-		printf("1. List all contacts\n\n2. Add new contact\n\n3. Find contact\n\n0. Exit\n\nPlease select (1, 2, 3, 0):");
-		scanf("%d",&choice);
+	
+	while(1){											//Here we start the main loop so we can use the menu multiple times after each action
+		printf("1. List all contacts\n\n2. Add new contact\n\n3. Find contact\n\n0. Exit\n\nPlease select (1, 2, 3, 0):"); //We print our menu and ask the choice of the user
+		scanf("%d",&choice);								
+		
 		system("cls");
-		if (choice==1){
-			if (count==0){
+		if (choice==1){							//This choice lists the contacts
+			if (count==0){						//If we dont have any we print the appropriate message
 				printf("No contacts in phone book.\n\n");
 			}
-			else{
+			else{								//But if we have we use a loop that stops at the last contact we added using the count variable
 				for (i=0; i<count; i++){
 					printf("%d. %d %d %d\n\n", i+1,*(arrayLastname+i),*(arrayName+i),*(arrayTel+i));	
 				}			
 			}
 		}
-		else if (choice==2){
-			if (count<arraySize){
+		else if (choice==2){					//This choice adds a new contact
+			if (count<arraySize){				//If the count is lower than the size of the array
 				printf("Please enter last name:");
 				scanf("%d",(arrayLastname+count));
 				printf("Please enter first name:");
@@ -33,16 +38,16 @@ int main(int argc, char *argv[]) {
 				count++;
 				system("cls");
 			}
-			else if(count==arraySize){
+			else if(count==arraySize){			//Else it prints that the phone book is full
 				printf("Phone book is full!!\n\n");
 			}
 		}
-		else if (choice==3){
-			do{
-				printf("Do you wish to search by last name(1) or by first name(2):");
+		else if (choice==3){					//This choice searches for contacts in the phone book				
+			do{									//Here we use the do/while loop to check for a valid answer
+				printf("Do you wish to search by last name(1) or by first name(2):"); //We ask which type of search the user wants(First name/Last name)
 				scanf("%d",&choice);
 				if (choice==1){
-					printf("Please enter last name:");
+					printf("Please enter last name:");								//And then we search the correct array
 					scanf("%d",&searchWord);
 					system("cls");
 					for (i=0; i<count; i++){
@@ -61,12 +66,12 @@ int main(int argc, char *argv[]) {
 						}
 					}
 				}
-				else{
+				else{						
 					printf("Not a valid answer!\n\n");
 				}
 			}while(choice!=1&&choice!=2);
 		}
-		else if (choice==0){
+		else if (choice==0){							//This choice exits the loop using break and frees the space we allocated using malloc
 			printf("Exiting Phone Book...");
 			free(arrayName);
 			free(arrayLastname);
