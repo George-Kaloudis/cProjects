@@ -1,79 +1,82 @@
 #include <stdio.h>
 #include <stdlib.h>
 int main(int argc, char *argv[]) {
-	int size,choice,i,word;
-	int contacts=0;
-	printf("Which is the size of the contact's book?:"); //Rwtame to megethos toy katalogoy epafwn
-	scanf("%d",&size);
-	int *name = malloc(sizeof(int) * size);	
-	int *lastname = malloc(sizeof(int) * size); //Edw ftiaxnoyme 3 listes me to megethos poy dothike apo ton xrhsth sthn arxh
-	int *number = malloc(sizeof(int) * size);
+	int listSize,answer,i,sw;
+	int s=0;
+	printf("Which is the size of the phone book?:");                 //Pairnoyme to megethos ths listas epafwn apo twn xrhsth
+	scanf("%d",&listSize);
+	int *namelist = malloc(sizeof(int) * listSize);	
+	int *lastnamelist = malloc(sizeof(int) * listSize);              //Edw ftiaxnoyme 3 listes me to megethos poy dothike apo ton xrhsth sthn arxh
+	int *telnumber = malloc(sizeof(int) * listSize);
 	system("cls");
-	while(1){											//Edw arxizei to loop poy tha xrhsimopoioyme gia na xanablepoyme to menoy mexri na epilexei exodo
-		printf("1. List all contacts\n\n2. Add new contact\n\n3. Find contact\n\n0. Exit\n\nPlease select (1, 2, 3, 0):"); //ektypwnoyme tiw epiloges kai perimenoyme thn apanthsh toy xrhsth
-		scanf("%d",&choice);								
-		
+	while(1){											             //Edw arxizei to loop poy tha xrhsimopoioyme gia na xanablepoyme to menoy mexri na epilexei exodo
+		printf("1. List all contacts\n\n"); //Ektypwnoyme tis epiloges kai perimenoyme thn apanthsh toy xrhsth
+		printf("2. Add new contact\n\n");
+		printf("3. Find contact\n\n");
+		printf("0. Exit\n\n");
+		printf("Please select (1, 2, 3, 0):");
+		scanf("%d",&answer);								
 		system("cls");
-		if (choice==1){							//Saythn thn epilogh ektypwnoyme tis epafes
-			if (contacts==0){						//an den exoume kamia to ektyponoyme
-				printf("No contacts in contact's book.\n\n");
+		if (answer==1){		                //An to answer einai 1 ektypwnoyme tis epafes
+			if (s==0){						//an den exoume kamia epafh to ektyponoyme
+				printf("No contacts in phone book.\n\n");
 			}
-			else{								//an exoume to ektypwnoyme me to parakatw loop
-				for (i=0; i<contacts; i++){
-					printf("%d. %d %d %d\n\n", i+1,*(lastname+i),*(name+i),*(number+i));	
+			else{								//an exoume tis ektypwnoyme me to parakatw loop
+				for (i=0; i<s; i++){
+					printf("%d. %d %d %d\n\n", i+1,*(lastnamelist+i),*(name+i),*(telnumber+i));	
 				}			
 			}
 		}
-		else if (choice==2){					//Saythn thn epilogh bazoyme mia kainoyria epilogh
-			if (contacts<size){				//an exoyme ligoteres epafes apo oti to megethos ths listas pou dothike prwsthetoyme allh mia
-				printf("Please enter last name:");
-				scanf("%d",(lastname+contacts));
+		else if (answer==2){					//An to answer einai 2 bazoyme mia kainoyria epafh
+			if (s<listSize){				//An exoyme ligoteres epafes apo oti to megethos ths listas pou dothike prwsthetoyme allh mia
+				printf("Please enter last namelist:");
+				scanf("%d",(lastnamelist+s));
 				printf("Please enter first name:");
-				scanf("%d",(name+contacts));
+				scanf("%d",(namelist+s));
 				printf("Please enter phone number:");
-				scanf("%d",(number+contacts));
-				contacts++;
+				scanf("%d",(telnumber+s));
+				s++;
 				system("cls");
 			}
-			else if(contacts==size){			//Alliws ektypwnei oti o katalogos einai gematos
+			else if(s==listSize){			//Alliws ektypwnei oti o katalogos einai gematos
 				printf("Contact's book is full!!\n\n");
 			}
 		}
-		else if (choice==3){					//Edv psaxnoyme gia epafes				
+		else if (answer==3){					//An to answer einai 3 psaxnoyme gia epafes				
 			while(1){		
 				printf("Do you wish to search by last name(1) or by first name(2):"); //Rwtame pws thelei na psaxei (Last Name//First Name)
-				scanf("%d",&choice);			
-				if (choice==1||choice==2){
+				scanf("%d",&answer);			
+				if (answer==1||answer==2){
 					break;
 				}					
 				printf("Not a valid answer!\n\n");
 			}
 				
-			if (choice==1){
+			if (answer==1){
 				printf("Please enter last name:");	
-				scanf("%d",&word);							//Meta psaxnoyme analoga ti exei epilexei gia to onoma h epiueto kai ektypwnoyme tiw epafes poy to exoyn. 
+				scanf("%d",&sw);							//Meta psaxnoyme analoga ti exei epilexei gia to onoma h epitheto kai ektypwnoyme tis epafes poy to exoyn. 
 				system("cls");													//Exoyn thn idia domh to else if kai to if apla allazei h lista poy psaxnoyme
-				for (i=0; i<contacts; i++){
-					if (*(lastname+i)==word){
-						printf("%d. %d %d %d\n\n", i+1,*(lastname+i),*(name+i),*(number+i));
+				for (i=0; i<s; i++){
+					if (*(lastnamelist+i)==sw){
+						printf("%d. %d %d %d\n\n", i+1,*(lastnamelist+i),*(namelist+i),*(telnumber+i));
 					}
 				}
 			}
-			else if (choice==2){
+			else if (answer==2){
 				printf("Please enter first name:");
-				scanf("%d",&word);
+				scanf("%d",&sw);
 				system("cls");
-				for (i=0; i<contacts; i++){
-					if (*(name+i)==word){
-						printf("%d. %d %d %d\n\n", i+1,*(lastname+i),*(name+i),*(number+i));
+				for (i=0; i<s; i++){
+					if (*(namelist+i)==sw){
+						printf("%d. %d %d %d\n\n", i+1,*(lastnamelist+i),*(namelist+i),*(telnumber+i));
 					}
 				}
 			}
 		}
-		else if (choice==0){							//Saythn thn epilogh bgainoyme apo to loop toy menu kai xrhsimopoioumai to free() giati xrhsimopoihsame to malloc()
-			free(name);
-			free(lastname);
-			free(number);
+		else if (answer==0){							//An to answer einai 0 bgainoyme apo to loop toy menu me to break kai xrhsimopoioumai to free() giati xrhsimopoihsame to malloc()
+			free(namelist);
+			free(lastnamelist);
+			free(telnumber);
 			break;
 		}
 		else{
